@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+             xmlns:vm="clr-namespace:MusicApp.ViewModel"
+             mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
+             x:Class="MusicApp.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <pv:PancakeView HasShadow="True" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundGradientAngle="180">
+        <pv:PancakeView.BackgroundGradientStops>
+            <pv:GradientStopCollection>
+                <pv:GradientStop Color="#E7EDF8" Offset="0" />
+                <pv:GradientStop Color="#E3E7EE" Offset="1" />
+            </pv:GradientStopCollection>
+        </pv:PancakeView.BackgroundGradientStops>
+        <Grid RowSpacing="30" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <pv:PancakeView CornerRadius="0,0,50,0"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Aspect="AspectFill" Grid.RowSpan="2" Source="{Binding RecentMusic.CoverImage}"/>
+                        <Grid Grid.Row="1" HeightRequest="80" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            <BoxView BackgroundColor="Black" Opacity="0.7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <StackLayout Margin="40,0" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding RecentMusic.Title}" TextColor="White" FontSize="17"/>
+                                <Label Text="{Binding RecentMusic.Artist}" TextColor="White" FontSize="12" Opacity="0.8"/>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </pv:PancakeView>
+                <pv:PancakeView HasShadow="True" HeightRequest="40" WidthRequest="40" CornerRadius="20" Margin="0,-25,40,0" 
+                            HorizontalOptions="End" VerticalOptions="Start" BackgroundGradientAngle="180">
+                    <pv:PancakeView.BackgroundGradientStops>
+                        <pv:GradientStopCollection>
+                            <pv:GradientStop Color="#D4420C" Offset="0" />
+                            <pv:GradientStop Color="#F3A283" Offset="1" />
+                        </pv:GradientStopCollection>
+                    </pv:PancakeView.BackgroundGradientStops>
+                    <Image Source="play.png" HeightRequest="15" WidthRequest="15" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </pv:PancakeView>
+            </StackLayout>
+            <CollectionView Grid.Row="1" Margin="20,0" ItemsSource="{Binding MusicList}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                            SelectionMode="Single" SelectedItem="{Binding SelectedMusic}" SelectionChangedCommand="{Binding SelectionCommand}">
+                <CollectionView.Header>
+                    <Label Text="YOUR PLAYLIST" TextColor="Black" Opacity="0.5" Margin="15,10"/>
+                </CollectionView.Header>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid BackgroundColor="#F7F9FC" Padding="15,10" HorizontalOptions="FillAndExpand">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout VerticalOptions="Center">
+                                <Label Text="{Binding Title}" TextColor="Black" FontSize="17"/>
+                                <Label Text="{Binding Artist}" TextColor="Black" FontSize="12" Opacity="0.5"/>
+                            </StackLayout>
+                            <pv:PancakeView HasShadow="True" HeightRequest="40" WidthRequest="40" CornerRadius="20" HorizontalOptions="End" VerticalOptions="Center" 
+                                            BackgroundGradientAngle="180">
+                                <pv:PancakeView.BackgroundGradientStops>
+                                    <pv:GradientStopCollection>
+                                        <pv:GradientStop Color="#E3E7EE" Offset="0" />
+                                        <pv:GradientStop Color="#FBFBFB" Offset="1" />
+                                    </pv:GradientStopCollection>
+                                </pv:PancakeView.BackgroundGradientStops>
+                                <Image Source="playBlack.png" WidthRequest="10" HeightRequest="12" HorizontalOptions="Center" VerticalOptions="Center" />
+                            </pv:PancakeView>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </pv:PancakeView>
+
+</ContentPage>
